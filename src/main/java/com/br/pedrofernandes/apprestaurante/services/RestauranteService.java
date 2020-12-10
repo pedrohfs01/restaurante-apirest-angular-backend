@@ -17,4 +17,8 @@ public class RestauranteService {
         return repo.findAll();
     }
 
+    public Restaurante insert(Restaurante obj){
+        return repo.save(obj);
+    }
+
 }
