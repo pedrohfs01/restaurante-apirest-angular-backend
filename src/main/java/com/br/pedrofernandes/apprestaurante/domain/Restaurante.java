@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -24,11 +25,11 @@ public class Restaurante {
     private String about;
     private String hours;
 
-    @OneToMany
-    private List<Review> reviews;
+    @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL)
+    private List<Review> review;
 
-    @OneToMany
-    private List<Menu> menus;
+    @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL)
+    private List<Menu> menu;
 
     public Restaurante(){
     }

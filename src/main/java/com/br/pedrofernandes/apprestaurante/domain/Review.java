@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.time.Instant;
 
@@ -22,6 +23,7 @@ public class Review {
     private String comments;
 
     @ManyToOne
-    private Restaurante restauranteId;
+    @JoinColumn(name = "restaurante_id")
+    private Restaurante restaurante;
 
 }

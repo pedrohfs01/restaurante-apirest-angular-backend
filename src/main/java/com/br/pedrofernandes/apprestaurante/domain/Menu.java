@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Getter @Setter @EqualsAndHashCode
@@ -20,5 +21,6 @@ public class Menu {
     private Double price;
 
     @ManyToOne
-    private Restaurante restauranteId;
+    @JoinColumn(name = "restaurante_id")
+    private Restaurante restaurante;
 }
