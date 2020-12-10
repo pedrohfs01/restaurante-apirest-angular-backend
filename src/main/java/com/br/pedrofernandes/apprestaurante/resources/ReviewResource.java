@@ -1,7 +1,10 @@
 package com.br.pedrofernandes.apprestaurante.resources;
 
+import com.br.pedrofernandes.apprestaurante.domain.Menu;
 import com.br.pedrofernandes.apprestaurante.domain.Restaurante;
 import com.br.pedrofernandes.apprestaurante.domain.Review;
+import com.br.pedrofernandes.apprestaurante.dto.MenuDTO;
+import com.br.pedrofernandes.apprestaurante.dto.ReviewDTO;
 import com.br.pedrofernandes.apprestaurante.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +22,8 @@ public class ReviewResource {
     private ReviewService service;
 
     @PostMapping()
-    public ResponseEntity<Restaurante> insert(@RequestBody Review obj){
+    public ResponseEntity<Restaurante> insert(@RequestBody ReviewDTO objDTO){
+        Review obj = service.fromDTO(objDTO);
         return new ResponseEntity(service.insert(obj), HttpStatus.CREATED);
     }
 }
