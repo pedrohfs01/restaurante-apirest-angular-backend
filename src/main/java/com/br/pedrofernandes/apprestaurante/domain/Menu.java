@@ -1,5 +1,6 @@
 package com.br.pedrofernandes.apprestaurante.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,5 +23,16 @@ public class Menu {
 
     @ManyToOne
     @JoinColumn(name = "restaurante_id")
+    @JsonIgnore
     private Restaurante restaurante;
+
+    public Menu(){}
+
+    public Menu(String id, String name, String imagePath, String description, Double price) {
+        this.id = id;
+        this.name = name;
+        this.imagePath = imagePath;
+        this.description = description;
+        this.price = price;
+    }
 }

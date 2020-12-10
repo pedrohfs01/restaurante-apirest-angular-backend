@@ -1,6 +1,7 @@
 package com.br.pedrofernandes.apprestaurante.services;
 
 import com.br.pedrofernandes.apprestaurante.Repositories.ReviewRepository;
+import com.br.pedrofernandes.apprestaurante.domain.Restaurante;
 import com.br.pedrofernandes.apprestaurante.domain.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,5 +16,9 @@ public class ReviewService {
 
     public List<Review> findReviews(String restauranteId){
         return repo.findAllByRestauranteId(restauranteId);
+    }
+
+    public Review insert(Review obj){
+        return repo.save(obj);
     }
 }

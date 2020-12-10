@@ -26,4 +26,13 @@ public class Review {
     @JoinColumn(name = "restaurante_id")
     private Restaurante restaurante;
 
+    public Review(){}
+
+    public Review(Long id, String name, Instant date, Double rating, String comments) {
+        this.id = id;
+        this.name = name;
+        this.date = date;
+        this.rating = rating;
+        this.comments = comments;
+    }
 }
