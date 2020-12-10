@@ -13,8 +13,10 @@ public class RestauranteService {
     @Autowired
     private RestauranteRepository repo;
 
+
     public List<Restaurante> findAll(){
         return repo.findAll();
+
     }
 
     public Restaurante insert(Restaurante obj){
