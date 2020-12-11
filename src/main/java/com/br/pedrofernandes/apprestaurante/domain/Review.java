@@ -1,37 +1,39 @@
 package com.br.pedrofernandes.apprestaurante.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import java.time.Instant;
+import javax.persistence.*;
+import java.util.Date;
 
 @Getter @Setter @EqualsAndHashCode
 @Entity
 public class Review {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Instant date;
+
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private Date date;
+
     private Double rating;
     private String comments;
 
     @ManyToOne
     @JoinColumn(name = "restaurante_id")
+    @JsonIgnore
     private Restaurante restaurante;
 
     public Review(){}
 
-    public Review(Long id, String name, Instant date, Double rating, String comments) {
-        this.id = id;
+    public Review(String name, Double rating, String comments) {
         this.name = name;
-        this.date = date;
         this.rating = rating;
         this.comments = comments;
     }
