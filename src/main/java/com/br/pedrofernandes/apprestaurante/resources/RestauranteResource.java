@@ -33,6 +33,11 @@ public class RestauranteResource {
         return ResponseEntity.ok().body(service.findAll());
     }
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Restaurante> findById(@PathVariable String id){
+        return new ResponseEntity(service.findById(id), HttpStatus.OK);
+    }
+
     @PostMapping()
     public ResponseEntity<Restaurante> insert(@RequestBody Restaurante obj){
         return new ResponseEntity<>(service.insert(obj), HttpStatus.CREATED);
