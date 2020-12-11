@@ -9,21 +9,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/users")
-public class UserResource {
+@CrossOrigin
+public class AuthResource {
 
     @Autowired
     private UserService service;
 
-
-    @GetMapping(value ="/{id}")
-    public ResponseEntity<User> findById(@PathVariable Long id){
-        return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
-    }
-
-    @PostMapping()
-    public ResponseEntity<User> insert(@RequestBody UserDTO userDTO){
+    @PostMapping(value = "/login")
+    public ResponseEntity<User> login(@RequestBody UserDTO userDTO){
         User user = service.fromDTO(userDTO);
-        return new ResponseEntity(service.insert(user), HttpStatus.CREATED);
+
+        return new ResponseEntity<>(service.findByEmail(user.getEmail()), HttpStatus.ACCEPTED);
     }
 }
