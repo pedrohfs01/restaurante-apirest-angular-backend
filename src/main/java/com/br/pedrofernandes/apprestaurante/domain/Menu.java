@@ -5,10 +5,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Getter @Setter @EqualsAndHashCode
 @Entity
@@ -26,6 +27,10 @@ public class Menu {
     @JsonIgnore
     private Restaurante restaurante;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "id.menu")
+    private Set<ItemPedido> itens = new HashSet<>();
+
     public Menu(){}
 
     public Menu(String id, String name, String imagePath, String description, Double price) {
@@ -34,5 +39,22 @@ public class Menu {
         this.imagePath = imagePath;
         this.description = description;
         this.price = price;
+    }
+
+    @JsonIgnore
+    public List<Pedido> getPedido(){
+        List<Pedido> lista = new ArrayList<>();
+        for(ItemPedido x : itens) {
+            lista.add(x.getPedido());
+        }
+        return lista;
+    }
+
+    public Set<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
     }
 }
