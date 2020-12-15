@@ -24,6 +24,10 @@ public class MenuService {
         return repo.findAllByRestauranteId(restauranteId);
     }
 
+    public Optional<Menu> findMenuById(String menuId) {
+        return repo.findById(menuId);
+    }
+
     public Menu insert(Menu obj){
         Optional<Restaurante> rest = restauranteService.findById(obj.getRestaurante().getId());
 

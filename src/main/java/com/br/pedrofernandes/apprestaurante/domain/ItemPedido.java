@@ -1,37 +1,34 @@
 package com.br.pedrofernandes.apprestaurante.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+@Data
 @Entity
 public class ItemPedido {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private Integer quantity;
 
+    @ManyToOne()
+    @JoinColumn(name = "items_id")
     @JsonIgnore
-    @EmbeddedId
-    private ItemPedidoPK id = new ItemPedidoPK();
+    private Menu menuId;
 
+    @ManyToOne
+    @JoinColumn(name = "orderItems_id")
     @JsonIgnore
-    public Pedido getPedido() {
-        return id.getPedido();
-    }
+    private Pedido pedidos;
 
-    public Menu getMenu() {
-        return id.getMenu();
-    }
-
-    public void setPedido(Pedido pedido) {
-        id.setPedido(pedido);
-    }
-
-    public void setMenu(Menu menu) {
-        id.setMenu(menu);
+    public ItemPedido(){
     }
 }

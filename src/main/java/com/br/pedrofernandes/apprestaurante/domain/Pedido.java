@@ -14,11 +14,21 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    private String endereco;
+    private String address;
     private String number;
     private String optionalAddress;
     private String paymentOptional;
 
-    @OneToMany(mappedBy = "id.pedido")
-    private List<ItemPedido> itens = new ArrayList<>();
+    @OneToMany(mappedBy = "pedidos")
+    private List<ItemPedido> orderItems = new ArrayList<>();
+
+    public Pedido(){
+    }
+
+    public Pedido(String address, String number, String optionalAddress, String paymentOptional) {
+        this.address = address;
+        this.number = number;
+        this.optionalAddress = optionalAddress;
+        this.paymentOptional = paymentOptional;
+    }
 }

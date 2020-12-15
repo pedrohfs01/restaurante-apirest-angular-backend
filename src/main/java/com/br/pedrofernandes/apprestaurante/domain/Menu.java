@@ -27,9 +27,9 @@ public class Menu {
     @JsonIgnore
     private Restaurante restaurante;
 
+    @OneToMany(mappedBy = "menuId")
     @JsonIgnore
-    @OneToMany(mappedBy = "id.menu")
-    private Set<ItemPedido> itens = new HashSet<>();
+    private Set<ItemPedido> items = new HashSet<>();
 
     public Menu(){}
 
@@ -39,22 +39,5 @@ public class Menu {
         this.imagePath = imagePath;
         this.description = description;
         this.price = price;
-    }
-
-    @JsonIgnore
-    public List<Pedido> getPedido(){
-        List<Pedido> lista = new ArrayList<>();
-        for(ItemPedido x : itens) {
-            lista.add(x.getPedido());
-        }
-        return lista;
-    }
-
-    public Set<ItemPedido> getItens() {
-        return itens;
-    }
-
-    public void setItens(Set<ItemPedido> itens) {
-        this.itens = itens;
     }
 }
