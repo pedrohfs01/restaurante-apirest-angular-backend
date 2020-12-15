@@ -21,6 +21,11 @@ public class UserResource {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
+    @GetMapping(value ="/email/{email}")
+    public ResponseEntity<User> findByEmail(@PathVariable String email){
+        return new ResponseEntity<>(service.findByEmail(email), HttpStatus.OK);
+    }
+
     @PostMapping()
     public ResponseEntity<User> insert(@RequestBody UserDTO userDTO){
         User user = service.fromDTO(userDTO);
