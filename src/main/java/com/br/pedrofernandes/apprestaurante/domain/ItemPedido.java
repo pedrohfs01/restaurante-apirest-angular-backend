@@ -2,6 +2,8 @@ package com.br.pedrofernandes.apprestaurante.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,7 +11,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class ItemPedido {
 
@@ -21,13 +24,14 @@ public class ItemPedido {
 
     @ManyToOne()
     @JoinColumn(name = "items_id")
-    @JsonIgnore
-    private Menu menuId;
+    private Menu menu;
 
     @ManyToOne
     @JoinColumn(name = "orderItems_id")
     @JsonIgnore
     private Pedido pedidos;
+
+
 
     public ItemPedido(){
     }

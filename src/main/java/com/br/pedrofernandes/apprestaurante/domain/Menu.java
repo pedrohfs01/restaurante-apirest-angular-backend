@@ -27,7 +27,7 @@ public class Menu {
     @JsonIgnore
     private Restaurante restaurante;
 
-    @OneToMany(mappedBy = "menuId")
+    @OneToMany(mappedBy = "menu")
     @JsonIgnore
     private Set<ItemPedido> items = new HashSet<>();
 

@@ -4,9 +4,14 @@ import com.br.pedrofernandes.apprestaurante.Repositories.ItemPedidoRepository;
 import com.br.pedrofernandes.apprestaurante.Repositories.PedidoRepository;
 import com.br.pedrofernandes.apprestaurante.domain.ItemPedido;
 import com.br.pedrofernandes.apprestaurante.domain.Pedido;
+import com.br.pedrofernandes.apprestaurante.dto.ItemPedidoDTO;
 import com.br.pedrofernandes.apprestaurante.dto.PedidoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.List;
+
 
 @Service
 public class PedidoService {
@@ -20,20 +25,26 @@ public class PedidoService {
     @Autowired
     ItemPedidoRepository itemPedidoRepository;
 
+    public List<Pedido> findAll(){
+        return repo.findAll();
+    }
+
     public Pedido insert(Pedido pedido) {
         repo.save(pedido);
-        for (ItemPedido ip : pedido.getOrderItems()) {
-            ip.setMenuId(menuService.findMenuById(ip.getMenuId().getId()).get());
-        }
         itemPedidoRepository.saveAll(pedido.getOrderItems());
         return pedido;
     }
 
     public Pedido fromDTO(PedidoDTO objDTO){
         Pedido obj = new Pedido(objDTO.getAddress(), objDTO.getNumber(), objDTO.getOptionalAddress(), objDTO.getPaymentOptional());
-        for(ItemPedido ip : objDTO.getOrderItems()){
-            obj.setOrderItems(objDTO.getOrderItems());
+        ItemPedido itemPedido = new ItemPedido();
+        for(ItemPedidoDTO ip : objDTO.getOrderItems()){
+            itemPedido.setQuantity(ip.getQuantity());
+            itemPedido.setMenu(menuService.findMenuById(ip.getMenuId()).get());
+            itemPedido.setPedidos(obj);
+            obj.setOrderItems(Arrays.asList(itemPedido));
         }
+
         return obj;
     }
 }

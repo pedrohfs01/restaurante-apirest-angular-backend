@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter @EqualsAndHashCode
@@ -26,10 +27,10 @@ public class Restaurante {
     private String hours;
 
     @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL)
-    private List<Review> review;
+    private List<Review> review = new ArrayList<>();
 
     @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL)
-    private List<Menu> menu;
+    private List<Menu> menu = new ArrayList<>();
 
     public Restaurante(){
     }
