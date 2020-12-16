@@ -7,6 +7,9 @@ import java.util.List;
 @Data
 public class PedidoDTO {
 
+    private String name;
+    private String email;
+    private String emailConfirmation;
 
     private String address;
     private String number;

@@ -4,6 +4,7 @@ import com.br.pedrofernandes.apprestaurante.Repositories.ItemPedidoRepository;
 import com.br.pedrofernandes.apprestaurante.Repositories.PedidoRepository;
 import com.br.pedrofernandes.apprestaurante.domain.ItemPedido;
 import com.br.pedrofernandes.apprestaurante.domain.Pedido;
+import com.br.pedrofernandes.apprestaurante.domain.User;
 import com.br.pedrofernandes.apprestaurante.dto.ItemPedidoDTO;
 import com.br.pedrofernandes.apprestaurante.dto.PedidoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class PedidoService {
     @Autowired
     ItemPedidoRepository itemPedidoRepository;
 
+    @Autowired
+    UserService userService;
+
     public List<Pedido> findAll(){
         return repo.findAll();
     }
@@ -38,13 +42,14 @@ public class PedidoService {
     public Pedido fromDTO(PedidoDTO objDTO){
         Pedido obj = new Pedido(objDTO.getAddress(), objDTO.getNumber(), objDTO.getOptionalAddress(), objDTO.getPaymentOptional());
         ItemPedido itemPedido = new ItemPedido();
+        User cliente = new User();
         for(ItemPedidoDTO ip : objDTO.getOrderItems()){
             itemPedido.setQuantity(ip.getQuantity());
-            itemPedido.setMenu(menuService.findMenuById(ip.getMenuId()).get());
+            itemPedido.setMenu(menuService.findMenuById(ip.getMenu()));
             itemPedido.setPedidos(obj);
             obj.setOrderItems(Arrays.asList(itemPedido));
         }
-
+        obj.setCliente(userService.findByEmail(objDTO.getEmail()));
         return obj;
     }
 }

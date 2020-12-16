@@ -5,6 +5,7 @@ import com.br.pedrofernandes.apprestaurante.Repositories.RestauranteRepository;
 import com.br.pedrofernandes.apprestaurante.domain.Menu;
 import com.br.pedrofernandes.apprestaurante.domain.Restaurante;
 import com.br.pedrofernandes.apprestaurante.dto.MenuDTO;
+import com.br.pedrofernandes.apprestaurante.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,15 +25,15 @@ public class MenuService {
         return repo.findAllByRestauranteId(restauranteId);
     }
 
-    public Optional<Menu> findMenuById(String menuId) {
-        return repo.findById(menuId);
+    public Menu findMenuById(String menuId) {
+        Optional<Menu> obj = repo.findById(menuId);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto "+menuId+" não encontrado."));
     }
 
     public Menu insert(Menu obj){
         Optional<Restaurante> rest = restauranteService.findById(obj.getRestaurante().getId());
-
-            obj.setRestaurante(rest.get());
-            return repo.save(obj);
+        obj.setRestaurante(rest.get());
+        return repo.save(obj);
       }
 
     public Menu fromDTO(MenuDTO objDTO){

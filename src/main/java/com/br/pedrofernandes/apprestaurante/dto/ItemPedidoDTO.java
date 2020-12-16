@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class ItemPedidoDTO {
     private Integer quantity;
-    private String menuId;
+    private String menu;
 }

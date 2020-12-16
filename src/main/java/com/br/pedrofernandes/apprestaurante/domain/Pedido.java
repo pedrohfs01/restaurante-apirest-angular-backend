@@ -1,6 +1,7 @@
 package com.br.pedrofernandes.apprestaurante.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +24,10 @@ public class Pedido {
 
     @OneToMany(mappedBy = "pedidos")
     private List<ItemPedido> orderItems = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "pedidos_id")
+    private User cliente;
 
     public Pedido(){
     }
